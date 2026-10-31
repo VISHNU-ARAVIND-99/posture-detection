@@ -1,0 +1,23 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyInstaller / Build artifacts
+build/
+dist/
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Large model binaries (auto-downloaded at runtime by main.py)
+*.task
+
+# User profile / local calibration data
+posture_profile.json
