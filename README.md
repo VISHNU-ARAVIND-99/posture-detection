@@ -28,14 +28,14 @@ Posture Guardian does not rely on simple 2D bounding boxes. Instead, it computes
 
 | Metric | Biomechanical Principle | Detection Formula |
 |---|---|---|
-| **Spine Compression Ratio** | Distance between mid-ear and mid-shoulder, normalized by shoulder span. Scale-invariant regardless of distance from webcam. | $$\text{Ratio} = \frac{\Delta Y_{\text{mid-shoulder} \to \text{mid-ear}}}{\|\mathbf{P}_{\text{left-shoulder}} - \mathbf{P}_{\text{right-shoulder}}\|}$$ |
-| **Forward Head Jut ($\Delta Z$)** | 3D depth differential in camera space between shoulder coronal plane and ear landmark plane. Catches forward "turtle neck". | $$\Delta Z = Z_{\text{world-shoulder}} - Z_{\text{world-ear}}$$ |
-| **Lateral Lean & Tilt** | Weighted composite of shoulder tilt and head roll angle, preventing tilt cancellation. | $$\Theta_{\text{lateral}} = 0.65 \cdot \|\theta_{\text{shoulder}}\| + 0.35 \cdot \|\theta_{\text{head}}\|$$ |
+| **Spine Compression Ratio** | Distance between mid-ear and mid-shoulder, normalized by shoulder span. Scale-invariant regardless of distance from webcam. | `Ratio = (Y_mid_shoulder - Y_mid_ear) / Shoulder_Width` |
+| **Forward Head Jut (ΔZ)** | 3D depth differential in camera space between shoulder coronal plane and ear landmark plane. Catches forward "turtle neck". | `ΔZ = Z_world_shoulder - Z_world_ear` |
+| **Lateral Lean & Tilt** | Weighted composite of shoulder tilt and head roll angle, preventing tilt cancellation. | `Tilt = 0.65 × abs(Shoulder_Roll) + 0.35 × abs(Head_Roll)` |
 
 ### Signal Conditioning & State Machine
-1. **Exponential Moving Average (EMA)**: Landmark measurements are filtered with an EMA smoothing factor ($\alpha = 0.28$) to eliminate webcam noise and high-frequency jitter.
+1. **Exponential Moving Average (EMA)**: Landmark measurements are filtered with an EMA smoothing factor (α = 0.28) to eliminate webcam noise and high-frequency jitter.
 2. **Grace Delay Period**: Configurable countdown (1.0s – 4.0s) prevents alerts during quick stretches or micro-movements.
-3. **Hysteresis State Machine**: Requires posture to improve past an exit ratio ($0.62$) before clearing the warning state, preventing flickering.
+3. **Hysteresis State Machine**: Requires posture to improve past an exit ratio (0.62) before clearing the warning state, preventing flickering.
 4. **Multi-Monitor Virtual Screen**: Coordinates automatically query the Windows Virtual Desktop bounds (`SM_XVIRTUALSCREEN`, `SM_CYVIRTUALSCREEN`) to span seamlessly across multi-display setups.
 
 ---
@@ -46,12 +46,12 @@ Posture Guardian features global Windows hotkeys that work system-wide even when
 
 | Action | In Application | Global Shortcut | System Tray Menu |
 |---|---|---|---|
-| **Calibrate Baseline** | Click **Calibrate baseline** | **`Alt + C`** | Right-click tray $\rightarrow$ *Calibrate baseline* |
+| **Calibrate Baseline** | Click **Calibrate baseline** | **`Alt + C`** | Right-click tray → *Calibrate baseline* |
 | **Toggle Warning Mode** | Segmented Button (Dimming / Blur) | **`Alt + B`** | — |
-| **Hide / Show Camera** | Click **Hide camera** | **`Alt + H`** | Right-click tray $\rightarrow$ *Hide / Show camera* |
-| **Restore Window** | Double-click taskbar icon | — | Right-click tray $\rightarrow$ *Show Posture Guardian* |
+| **Hide / Show Camera** | Click **Hide camera** | **`Alt + H`** | Right-click tray → *Hide / Show camera* |
+| **Restore Window** | Double-click taskbar icon | — | Right-click tray → *Show Posture Guardian* |
 | **Minimize to Tray** | Click **Minimize to tray** or **`X`** | — | — |
-| **Exit Application** | Click close tray menu | **`Alt + Q`** | Right-click tray $\rightarrow$ *Exit* |
+| **Exit Application** | Click close tray menu | **`Alt + Q`** | Right-click tray → *Exit* |
 
 ---
 
