@@ -10,6 +10,12 @@
 
 ---
 
+<div align="center">
+  <img src="assets/preview.png" alt="Posture Guardian Application Interface" width="90%">
+</div>
+
+---
+
 ## 🌟 Key Highlights
 
 - **🧠 3D Biomechanical Pose Engine**: Tracks scale-invariant spinal compression, 3D Z-depth forward head jut ("text neck"), and composite shoulder tilt using Google MediaPipe.
